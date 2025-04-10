@@ -73,12 +73,12 @@ rm -rf /etc/nginx/sites-enabled/default
 if [[  -n "${DOMAIN}"  ]];then
 cat <<\EOT >/etc/nginx/conf.d/site.conf
 server {
-    listen 880;
+    listen 80;
     server_name ${DOMAIN} ;
     return 302 https://$server_name$request_uri;
 }
 server {
-    listen 8443 ssl http2;
+    listen 443 ssl http2;
     server_name ${DOMAIN} ;
 
     ssl_certificate         /etc/nginx/certs/cert.pem;
@@ -100,7 +100,7 @@ EOT
 else
 cat <<\EOT >/etc/nginx/conf.d/site.conf
 server {
-    listen 880;
+    listen 80;
     location / {
         root /var/www/site/front-end;
         index index.html;
